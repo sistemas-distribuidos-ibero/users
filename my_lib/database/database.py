@@ -2,8 +2,6 @@
 Database Interface Class
 """
 import os
-import json
-from datetime import datetime as dt
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
@@ -33,13 +31,14 @@ class DatabaseInterface:
 
         self.db_url = "postgresql://"
         self.db_url += f"{db_user}:{db_password}"
-        self.db_url += f"@{db_host}:{db_port}/{db_name}"
+        # self.db_url += f"@{db_host}:{db_port}/{db_name}"
+        self.db_url += f"@{db_host}/{db_name}"
 
-        self.engine = self._create_engine(self.db_url, echo=False)
+        self.engine = create_engine(self.db_url, echo=False)
 
         session_class = sessionmaker(bind=self.engine)
 
-        self.session = self._create_session()
+        self.session = session_class()
 
         Base.metadata.create_all(self.engine)
 

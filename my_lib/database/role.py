@@ -6,7 +6,7 @@ class Role(Base):
     Role model
     '''
     __tablename__ = 'roles'
-    Id = Column(Integer(), primary_key=True)
+    Id = Column(Integer(), primary_key=True, autoincrement=True)
     Name = Column(String(20), nullable=False)
 
     def serialize(self):
