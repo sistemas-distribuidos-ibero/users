@@ -21,7 +21,7 @@ CORS(app)
 
 # Create a new user
 @app.route(URI + 'users/create', methods=['POST'])
-@crud_template(request, ['Email', 'Password', 'Name', 'LastName', 'Id_Role'])
+@crud_template(request, ['email', 'password', 'name', 'lastname', 'id_role'])
 def create_user():
     """
     Create a new user
@@ -35,15 +35,15 @@ def create_user():
             "message": "User already exist"
         }), 302
 
-    if database.read_by_id('roles', int(request.json['role'])) is not None:
+    if database.read_by_id('roles', int(request.json['id_role'])) is not None:
         created, user = database.create_table_row(
             'users',
             {
-                "Id_Role": int(request.json['Role']),
-                'Name': request.json['Name'],
-                'LastName': request.json['LastName'],
-                'Email': request.json['Email'],
-                'Password': request.json['Password'],
+                "id_role": int(request.json['id_role']),
+                'name': request.json['name'],
+                'lastname': request.json['lastname'],
+                'email': request.json['email'],
+                'password': request.json['password'],
             }
         )
 
@@ -90,7 +90,7 @@ def get_users(user_id=None):
 
 # Update a user
 @app.route(URI + 'users/update/<int:user_id>', methods=['PUT'])
-@crud_template(request, optional_fields=['Email', 'Password', 'Name', 'LastName', 'Id_Role', 'IsBanned'])
+@crud_template(request, optional_fields=['email', 'password', 'name', 'lastname', 'id_role', 'is_banned'])
 def update_user(user_id):
     """
     Update a user
@@ -108,7 +108,7 @@ def update_user(user_id):
     
     rowInfo = request.json
 
-    rowInfo['UpdatedDate'] = dt.now()
+    rowInfo['updated_at'] = dt.now()
 
     user = database.update_table_row('users', user_id, rowInfo)
 
@@ -156,7 +156,7 @@ def delete_user(user_id):
 
 # Create a new role
 @app.route(URI + 'roles/create', methods=['POST'])
-@crud_template(request, ['Name'])
+@crud_template(request, ['nombre'])
 def create_role():
     """
     Create a new role
@@ -168,7 +168,7 @@ def create_role():
     created, role = database.create_table_row(
         'roles',
         {
-            'Name': request.json['Name'],
+            'nombre': request.json['nombre'],
         }
     )
 
@@ -215,7 +215,7 @@ def get_roles(role_id=None):
 
 # Update a role
 @app.route(URI + 'roles/update/<int:role_id>', methods=['PUT'])
-@crud_template(request, optional_fields=['Name'])
+@crud_template(request, optional_fields=['nombre'])
 def update_role(role_id):
     """
     Update a role

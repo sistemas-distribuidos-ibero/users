@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, VARCHAR
 from .base import Base
 
 class Role(Base):
@@ -6,8 +6,8 @@ class Role(Base):
     Role model
     '''
     __tablename__ = 'roles'
-    Id = Column(Integer(), primary_key=True, autoincrement=True)
-    Name = Column(String(20), nullable=False)
+    id = Column(Integer(), primary_key=True, autoincrement=True)
+    nombre = Column(VARCHAR(50), nullable=False)
 
     def serialize(self):
         """
@@ -18,6 +18,6 @@ class Role(Base):
         """
 
         return {
-            "Id": self.Id,
-            "Name": self.Name,
+            "id": self.id,
+            "nombre": self.nombre,
         }
