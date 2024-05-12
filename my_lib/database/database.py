@@ -96,7 +96,7 @@ class DatabaseInterface:
         if table_class:
             data = self.session.query(table_class)
 
-            return data.filter(table_class.Id == element_id).first()
+            return data.filter(table_class.id == element_id).first()
 
         return None
     
@@ -142,7 +142,7 @@ class DatabaseInterface:
 
         if table_class:
             data = self.session.query(table_class)
-            data = data.filter(table_class.Id == element_id).first()
+            data = data.filter(table_class.id == element_id).first()
 
             for key, value in row_info.items():
                 setattr(data, key, value)
@@ -169,7 +169,7 @@ class DatabaseInterface:
         if table_class:
             try:
                 data = self.session.query(table_class)
-                data = data.filter(table_class.Id == id_element).first()
+                data = data.filter(table_class.id == id_element).first()
 
                 self.session.delete(data)
                 self.session.commit()
